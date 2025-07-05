@@ -1,0 +1,35 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-latest # Changed from ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          # Optional: Add Windows-specific cache configuration
+          cache: "npm"
+          cache-dependency-path: "package-lock.json"
+
+      - name: Install dependencies
+        run: npm install
+        # Windows-specific tip: You might want to add --no-optional if you have issues with optional dependencies
+        # run: npm install --no-optional
+
+      - name: Run tests
+        run: npm test
+        # If you need to set environment variables for Windows:
+        # env:
+        #   CI: true
+        #   NODE_ENV: test
