@@ -1,6 +1,5 @@
 // test/test.js
-const assert = require("chai").assert;
-const app = require("../app");
+import { assert } from "chai";
 
 describe("Simple test", function () {
   it("should return hello message", function () {
